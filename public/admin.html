@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Quản trị - Nhịp Cầu Yêu Thương</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="shop.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="logo" href="./">Nhịp Cầu <span>Yêu Thương</span> · Quản trị</a>
+      <nav class="nav-links">
+        <a href="./">Về trang chủ</a>
+        <a href="#" id="logout" hidden>Đăng xuất</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="padding: 40px 0 70px;">
+
+    <!-- Đăng nhập -->
+    <section id="login-box" style="padding:0;">
+      <h2 class="section-title">Đăng nhập quản trị</h2>
+      <form class="panel" id="login-form">
+        <label for="password">Mật khẩu</label>
+        <input id="password" type="password" required autocomplete="current-password" />
+        <div class="form-actions"><button class="btn" type="submit">Đăng nhập</button></div>
+        <div class="msg" id="login-msg" role="status"></div>
+      </form>
+    </section>
+
+    <!-- Bảng điều khiển -->
+    <div id="dashboard" hidden>
+      <section style="padding:0 0 40px;">
+        <h2 class="section-title">Thêm trại cứu hộ</h2>
+        <form class="panel" id="camp-form">
+          <label for="c-name">Tên trại *</label>
+          <input id="c-name" required maxlength="160" />
+          <label for="c-location">Địa điểm</label>
+          <input id="c-location" maxlength="200" />
+          <label for="c-desc">Mô tả</label>
+          <textarea id="c-desc" maxlength="1200"></textarea>
+          <label for="c-act">Hoạt động (ngắn gọn)</label>
+          <input id="c-act" maxlength="200" placeholder="VD: Chăm sóc thú cưng" />
+          <div class="form-actions"><button class="btn" type="submit">Thêm trại</button></div>
+          <div class="msg" id="camp-msg" role="status"></div>
+        </form>
+      </section>
+
+      <section style="padding:0 0 40px;">
+        <h2 class="section-title">Danh sách trại cứu hộ</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tên</th><th>Địa điểm</th><th>Hoạt động</th><th></th></tr></thead>
+            <tbody id="camp-rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section style="padding:0 0 40px;">
+        <h2 class="section-title">Thông tin thanh toán</h2>
+        <p class="section-sub">Hiển thị cho khách sau khi đặt hàng bằng hình thức chuyển khoản. Điền mã ngân hàng (VD: VCB, MB, ACB, TCB) để tự tạo mã QR.</p>
+        <form class="panel" id="pay-form">
+          <label for="p-bank">Tên ngân hàng</label>
+          <input id="p-bank" maxlength="80" placeholder="VD: Vietcombank" />
+          <label for="p-code">Mã ngân hàng (để tạo QR)</label>
+          <input id="p-code" maxlength="12" placeholder="VD: VCB" />
+          <label for="p-acc">Số tài khoản</label>
+          <input id="p-acc" maxlength="30" inputmode="numeric" />
+          <label for="p-name">Tên chủ tài khoản</label>
+          <input id="p-name" maxlength="80" placeholder="VIET HOA KHONG DAU" />
+          <label for="p-note">Lưu ý thêm cho khách</label>
+          <textarea id="p-note" maxlength="400"></textarea>
+          <div class="form-actions"><button class="btn" type="submit">Lưu thông tin thanh toán</button></div>
+          <div class="msg" id="pay-msg" role="status"></div>
+        </form>
+      </section>
+
+      <section style="padding:0 0 40px;">
+        <h2 class="section-title">Thêm món vào thực đơn</h2>
+        <form class="panel" id="prod-form">
+          <label for="pr-name">Tên món *</label>
+          <input id="pr-name" required maxlength="160" />
+          <label for="pr-price">Giá (VNĐ) *</label>
+          <input id="pr-price" type="number" min="0" max="10000000" step="1000" required />
+          <label for="pr-cat">Nhóm</label>
+          <input id="pr-cat" maxlength="60" placeholder="VD: Đồ uống" />
+          <label for="pr-desc">Mô tả</label>
+          <textarea id="pr-desc" maxlength="600"></textarea>
+          <div class="form-actions"><button class="btn" type="submit">Thêm món</button></div>
+          <div class="msg" id="prod-msg" role="status"></div>
+        </form>
+      </section>
+
+      <section style="padding:0 0 40px;">
+        <h2 class="section-title">Thực đơn</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Món</th><th>Nhóm</th><th>Giá</th><th>Đang bán</th><th></th></tr></thead>
+            <tbody id="prod-rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section style="padding:0 0 40px;">
+        <h2 class="section-title">Đơn hàng</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Mã / Thời gian</th><th>Khách hàng</th><th>Món</th><th>Thanh toán</th><th>Trạng thái</th><th></th></tr></thead>
+            <tbody id="order-rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section style="padding:0;">
+        <h2 class="section-title">Đơn đăng ký tình nguyện</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Thời gian</th><th>Họ tên</th><th>Liên hệ</th><th>Trại</th><th>Lời nhắn</th><th></th></tr></thead>
+            <tbody id="vol-rows"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="admin.js"></script>
+  <script src="admin-shop.js"></script>
+</body>
+</html>

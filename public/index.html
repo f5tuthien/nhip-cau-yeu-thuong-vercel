@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nhịp Cầu Yêu Thương</title>
+  <meta name="description" content="Nhịp Cầu Yêu Thương - kết nối những tấm lòng thiện nguyện với các trại cứu hộ và hoạt động cộng đồng." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="shop.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="logo" href="./">Nhịp Cầu <span>Yêu Thương</span></a>
+      <nav class="nav-links">
+        <a href="#gioi-thieu">Giới thiệu</a>
+        <a href="#trai-cuu-ho">Trại cứu hộ</a>
+        <a href="#thuc-don">Thực đơn</a>
+        <a href="#doi-ngu">Đội ngũ</a>
+        <a href="#tinh-nguyen">Tình nguyện</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="gioi-thieu">
+      <div class="container">
+        <h1>Mỗi nhịp tim nhỏ, một <em>cây cầu yêu thương</em></h1>
+        <p>Chúng mình kết nối những người muốn giúp đỡ với các trại cứu hộ và hoạt động thiện nguyện. Một chút thời gian của bạn có thể thay đổi cuộc sống của rất nhiều sinh linh.</p>
+        <a class="btn" href="#tinh-nguyen">Đăng ký tình nguyện</a>
+        <a class="btn secondary" href="#trai-cuu-ho">Xem các trại cứu hộ</a>
+
+        <div class="stats">
+          <div class="stat"><b id="stat-camps">0</b>Trại cứu hộ đồng hành</div>
+          <div class="stat"><b>100%</b>Minh bạch, phi lợi nhuận</div>
+          <div class="stat"><b>Mở</b>Ai cũng có thể tham gia</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="trai-cuu-ho" class="alt">
+      <div class="container">
+        <h2 class="section-title">Các trại cứu hộ</h2>
+        <p class="section-sub">Danh sách những nơi đang cần bàn tay của bạn. Danh sách được cập nhật thường xuyên bởi đội ngũ quản trị.</p>
+        <div class="grid" id="camp-list"><p class="empty">Đang tải danh sách...</p></div>
+      </div>
+    </section>
+
+    <section id="thuc-don">
+      <div class="container">
+        <h2 class="section-title">Thực đơn</h2>
+        <p class="section-sub">Chọn món bạn thích, điền thông tin nhận hàng và thanh toán chuyển khoản hoặc khi nhận hàng.</p>
+        <div class="shop">
+          <div id="menu-list"><p class="empty">Đang tải thực đơn...</p></div>
+
+          <aside class="card cart" id="cart">
+            <h3>Giỏ hàng</h3>
+            <div id="cart-items"></div>
+            <div class="cart-total"><span>Tổng cộng</span><b id="cart-total">0 ₫</b></div>
+
+            <form id="order-form" novalidate>
+              <label for="o-name">Họ và tên *</label>
+              <input id="o-name" name="name" required maxlength="120" autocomplete="name" />
+
+              <label for="o-phone">Số điện thoại *</label>
+              <input id="o-phone" name="phone" type="tel" required maxlength="30" autocomplete="tel" />
+
+              <label for="o-address">Địa chỉ nhận hàng *</label>
+              <textarea id="o-address" name="address" required maxlength="300" autocomplete="street-address"></textarea>
+
+              <label for="o-note">Ghi chú</label>
+              <input id="o-note" name="note" maxlength="500" />
+
+              <label>Hình thức thanh toán</label>
+              <div class="radio-row">
+                <label><input type="radio" name="method" value="bank" checked /> Chuyển khoản ngân hàng</label>
+                <label><input type="radio" name="method" value="cod" /> Thanh toán khi nhận hàng</label>
+              </div>
+
+              <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+              <div class="form-actions"><button class="btn" id="order-submit" type="submit" disabled>Đặt hàng</button></div>
+              <div class="msg" id="order-msg" role="status"></div>
+            </form>
+          </aside>
+        </div>
+
+        <div class="card order-done" id="order-done" hidden></div>
+      </div>
+    </section>
+
+    <section id="doi-ngu" class="alt team">
+      <div class="container">
+        <h2 class="section-title">Đội ngũ</h2>
+        <p class="section-sub">Những người đứng sau Nhịp Cầu Yêu Thương.</p>
+        <div class="grid">
+          <div class="card"><div class="avatar">A</div><h3>Điều phối dự án</h3><p>Kết nối tình nguyện viên với các trại cứu hộ và sắp xếp lịch hoạt động.</p></div>
+          <div class="card"><div class="avatar">B</div><h3>Truyền thông</h3><p>Chia sẻ câu chuyện, kêu gọi sự chung tay của cộng đồng.</p></div>
+          <div class="card"><div class="avatar">C</div><h3>Hậu cần</h3><p>Chuẩn bị thực phẩm, thuốc men, vật dụng cho các chuyến đi.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tinh-nguyen">
+      <div class="container">
+        <h2 class="section-title">Đăng ký làm tình nguyện viên</h2>
+        <p class="section-sub">Điền thông tin bên dưới, đội ngũ sẽ liên hệ với bạn sớm nhất có thể.</p>
+        <form class="panel" id="volunteer-form" novalidate>
+          <label for="name">Họ và tên *</label>
+          <input id="name" name="name" required maxlength="120" autocomplete="name" />
+
+          <label for="phone">Số điện thoại *</label>
+          <input id="phone" name="phone" type="tel" required maxlength="30" autocomplete="tel" />
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" maxlength="160" autocomplete="email" />
+
+          <label for="camp">Bạn muốn hỗ trợ trại nào?</label>
+          <select id="camp" name="camp"><option value="">Chưa chọn / Nơi nào cũng được</option></select>
+
+          <label for="message">Lời nhắn</label>
+          <textarea id="message" name="message" maxlength="1000" placeholder="Bạn có thể giúp việc gì, thời gian rảnh..."></textarea>
+
+          <!-- Ô chống spam: người thật sẽ không thấy -->
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <div class="form-actions"><button class="btn" type="submit">Gửi đăng ký</button></div>
+          <div class="msg" id="form-msg" role="status"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> Nhịp Cầu Yêu Thương. Làm từ trái tim.</p>
+      <p><a href="admin.html">Quản trị</a></p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="shop.js"></script>
+</body>
+</html>
