@@ -61,6 +61,39 @@
       </section>
 
       <section style="padding:0 0 40px;">
+        <h2 class="section-title">Thêm mốc tiến độ dự án</h2>
+        <p class="section-sub">Hiển thị thành dòng thời gian "Quá trình thực hiện dự án" trên trang chủ. Khi chưa có mốc nào, mục này tự ẩn.</p>
+        <form class="panel" id="upd-form">
+          <label for="u-date">Ngày *</label>
+          <input id="u-date" type="date" required />
+          <label for="u-title">Tiêu đề *</label>
+          <input id="u-title" required maxlength="160" placeholder="VD: Chuyến thăm trại cứu hộ đầu tiên" />
+          <label for="u-desc">Nội dung</label>
+          <textarea id="u-desc" maxlength="1500"></textarea>
+          <label for="u-status">Trạng thái</label>
+          <select id="u-status">
+            <option value="done">Đã hoàn thành</option>
+            <option value="ongoing">Đang thực hiện</option>
+            <option value="planned">Sắp tới</option>
+          </select>
+          <label for="u-img">Link ảnh (không bắt buộc, phải bắt đầu bằng https://)</label>
+          <input id="u-img" type="url" maxlength="500" placeholder="https://..." />
+          <div class="form-actions"><button class="btn" type="submit">Thêm mốc</button></div>
+          <div class="msg" id="upd-msg" role="status"></div>
+        </form>
+      </section>
+
+      <section style="padding:0 0 40px;">
+        <h2 class="section-title">Các mốc tiến độ</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Ngày</th><th>Nội dung</th><th>Trạng thái</th><th></th></tr></thead>
+            <tbody id="upd-rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section style="padding:0 0 40px;">
         <h2 class="section-title">Thông tin thanh toán</h2>
         <p class="section-sub">Hiển thị cho khách sau khi đặt hàng bằng hình thức chuyển khoản. Điền mã ngân hàng (VD: VCB, MB, ACB, TCB) để tự tạo mã QR.</p>
         <form class="panel" id="pay-form">

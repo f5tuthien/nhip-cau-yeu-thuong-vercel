@@ -1,4 +1,37 @@
 .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* Chó mèo ở đầu trang */
+.hero .container { position: relative; }
+.hero-pets { position: absolute; right: 0; top: -6px; display: flex; gap: 8px; align-items: flex-end; }
+.hero-pets img { width: 150px; height: 150px; filter: drop-shadow(0 8px 14px rgba(80, 50, 20, 0.18)); }
+.hero-pets img:first-child { transform: rotate(-6deg); }
+.hero-pets img:last-child { transform: rotate(5deg) translateY(10px); }
+@media (max-width: 1100px) {
+  .hero-pets { position: static; margin-bottom: 14px; }
+  .hero-pets img { width: 96px; height: 96px; }
+}
+
+/* Quá trình thực hiện dự án */
+.progress-bar { height: 12px; background: #efe3d2; border-radius: 999px; overflow: hidden; max-width: 640px; }
+.progress-bar span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), #5fb39f); transition: width 0.6s; }
+.progress-text { margin: 8px 0 30px; color: var(--muted); font-weight: 600; }
+.timeline { position: relative; list-style: none; margin: 0; padding: 0 0 0 30px; max-width: 760px; }
+.timeline::before { content: ""; position: absolute; left: 9px; top: 6px; bottom: 6px; width: 2px; background: var(--line); }
+.tl-item { position: relative; margin-bottom: 20px; }
+.tl-item::before {
+  content: ""; position: absolute; left: -29px; top: 24px; width: 14px; height: 14px;
+  border-radius: 50%; background: #fff; border: 3px solid #b8aa98;
+}
+.tl-item.done::before { background: var(--accent); border-color: var(--accent); }
+.tl-item.ongoing::before { border-color: var(--brand); box-shadow: 0 0 0 4px rgba(226, 103, 43, 0.18); }
+.tl-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 6px; color: var(--muted); font-size: 0.9rem; font-weight: 600; }
+.badge { display: inline-block; border-radius: 999px; padding: 2px 12px; font-size: 0.8rem; font-weight: 700; }
+.badge.done { background: #e3f4ee; color: #1f6b5a; }
+.badge.ongoing { background: #fdebd9; color: var(--brand-dark); }
+.badge.planned { background: #efe9df; color: var(--muted); }
+.tl-item h3 { margin: 0 0 6px; font-size: 1.15rem; }
+.tl-item p { margin: 0; white-space: pre-line; }
+.tl-item img.tl-photo { width: 100%; max-height: 300px; object-fit: cover; border-radius: 12px; margin-top: 14px; }
 .shop { display: grid; grid-template-columns: 1fr 360px; gap: 28px; align-items: start; }
 .menu-cat { margin: 0 0 26px; }
 .menu-cat h3 { margin: 0 0 12px; font-size: 1.1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em; }

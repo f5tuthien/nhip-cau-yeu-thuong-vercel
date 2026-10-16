@@ -65,6 +65,16 @@ export async function ensureTables() {
         key TEXT PRIMARY KEY,
         value TEXT
       )`;
+    await sql`
+      CREATE TABLE IF NOT EXISTS project_updates (
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL,
+        description TEXT,
+        event_date DATE NOT NULL DEFAULT CURRENT_DATE,
+        status TEXT NOT NULL DEFAULT 'done',
+        image_url TEXT,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      )`;
   })().catch((e) => {
     _ready = undefined;
     throw e;

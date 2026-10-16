@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nhịp Cầu Yêu Thương</title>
   <meta name="description" content="Nhịp Cầu Yêu Thương - kết nối những tấm lòng thiện nguyện với các trại cứu hộ và hoạt động cộng đồng." />
+  <link rel="icon" type="image/svg+xml" href="img/meo.svg" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="shop.css" />
 </head>
@@ -14,6 +15,7 @@
       <a class="logo" href="./">Nhịp Cầu <span>Yêu Thương</span></a>
       <nav class="nav-links">
         <a href="#gioi-thieu">Giới thiệu</a>
+        <a href="#tien-do" id="nav-progress" hidden>Tiến độ</a>
         <a href="#trai-cuu-ho">Trại cứu hộ</a>
         <a href="#thuc-don">Thực đơn</a>
         <a href="#doi-ngu">Đội ngũ</a>
@@ -25,6 +27,10 @@
   <main>
     <section class="hero" id="gioi-thieu">
       <div class="container">
+        <div class="hero-pets" aria-hidden="true">
+          <img src="img/cho.svg" alt="" width="150" height="150" />
+          <img src="img/meo.svg" alt="" width="150" height="150" />
+        </div>
         <h1>Mỗi nhịp tim nhỏ, một <em>cây cầu yêu thương</em></h1>
         <p>Chúng mình kết nối những người muốn giúp đỡ với các trại cứu hộ và hoạt động thiện nguyện. Một chút thời gian của bạn có thể thay đổi cuộc sống của rất nhiều sinh linh.</p>
         <a class="btn" href="#tinh-nguyen">Đăng ký tình nguyện</a>
@@ -35,6 +41,16 @@
           <div class="stat"><b>100%</b>Minh bạch, phi lợi nhuận</div>
           <div class="stat"><b>Mở</b>Ai cũng có thể tham gia</div>
         </div>
+      </div>
+    </section>
+
+    <section id="tien-do" hidden>
+      <div class="container">
+        <h2 class="section-title">Quá trình thực hiện dự án</h2>
+        <p class="section-sub">Những mốc chúng mình đã đi qua và sắp làm tiếp, cập nhật thường xuyên.</p>
+        <div class="progress-bar" aria-hidden="true"><span id="progress-fill"></span></div>
+        <p class="progress-text" id="progress-text"></p>
+        <ol class="timeline" id="progress-list"></ol>
       </div>
     </section>
 
@@ -133,12 +149,13 @@
 
   <footer>
     <div class="container">
-      <p>© <span id="year"></span> Nhịp Cầu Yêu Thương. Làm từ trái tim.</p>
+      <p>© <span id="year"></span> Nhịp Cầu Yêu Thương. Làm từ trái tim 🐾</p>
       <p><a href="admin.html">Quản trị</a></p>
     </div>
   </footer>
 
   <script src="app.js"></script>
   <script src="shop.js"></script>
+  <script src="progress.js"></script>
 </body>
 </html>

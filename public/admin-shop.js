@@ -10,6 +10,7 @@ const STATUS_LABELS = {
 };
 
 function loadShop() {
+  loadUpdates();
   loadPayment();
   loadProducts();
   loadOrders();
@@ -161,6 +162,94 @@ document.addEventListener('click', async (ev) => {
       await api('/api/orders?id=' + order, { method: 'DELETE' });
       loadOrders();
     }
+  } catch (e) {
+    alert(e.message);
+  }
+});
+
+/* ---------- Tiến độ dự án ---------- */
+
+const UPD_STATUS = { done: 'Đã hoàn thành', ongoing: 'Đang thực hiện', planned: 'Sắp tới' };
+
+function fmtDate(s) {
+  const [y, m, d] = String(s).split('-');
+  return y && m && d ? `${d}/${m}/${y}` : s;
+}
+
+function todayLocal() {
+  // Lấy ngày theo giờ máy bạn, tránh bị lệch một ngày do múi giờ
+  return new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+}
+
+async function loadUpdates() {
+  try {
+    const rows = await fetch('/api/updates?t=' + Date.now()).then((r) => r.json());
+    $('#upd-rows').innerHTML = rows.length
+      ? rows.map((u) => `
+        <tr>
+          <td>${esc(fmtDate(u.event_date))}</td>
+          <td><b>${esc(u.title)}</b><br><small>${esc(u.description)}</small>
+            ${u.image_url ? `<br><small><a href="${esc(u.image_url)}" target="_blank" rel="noopener noreferrer">Xem ảnh</a></small>` : ''}</td>
+          <td>
+            <select data-upd-status-id="${u.id}" aria-label="Trạng thái">
+              ${Object.entries(UPD_STATUS).map(([v, l]) =>
+                `<option value="${v}" ${u.status === v ? 'selected' : ''}>${l}</option>`).join('')}
+            </select>
+          </td>
+          <td><button class="btn danger" data-del-upd="${u.id}">Xóa</button></td>
+        </tr>`).join('')
+      : '<tr><td colspan="4" class="empty">Chưa có mốc nào. Trang chủ đang ẩn mục tiến độ.</td></tr>';
+  } catch (e) { /* bỏ qua, bảng giữ nguyên */ }
+}
+
+$('#u-date').value = todayLocal();
+
+$('#upd-form').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const msg = $('#upd-msg');
+  msg.className = 'msg';
+  try {
+    await api('/api/updates', {
+      method: 'POST',
+      body: JSON.stringify({
+        event_date: $('#u-date').value,
+        title: $('#u-title').value,
+        description: $('#u-desc').value,
+        status: $('#u-status').value,
+        image_url: $('#u-img').value,
+      }),
+    });
+    ev.target.reset();
+    $('#u-date').value = todayLocal();
+    msg.className = 'msg ok';
+    msg.textContent = 'Đã thêm mốc tiến độ.';
+    loadUpdates();
+  } catch (e) {
+    msg.className = 'msg err';
+    msg.textContent = e.message;
+  }
+});
+
+document.addEventListener('change', async (ev) => {
+  const id = ev.target.dataset?.updStatusId;
+  if (!id) return;
+  try {
+    await api('/api/updates', {
+      method: 'PATCH',
+      body: JSON.stringify({ id: Number(id), status: ev.target.value }),
+    });
+  } catch (e) {
+    alert(e.message);
+    loadUpdates();
+  }
+});
+
+document.addEventListener('click', async (ev) => {
+  const id = ev.target.dataset?.delUpd;
+  if (!id || !confirm('Xóa mốc tiến độ này?')) return;
+  try {
+    await api('/api/updates?id=' + id, { method: 'DELETE' });
+    loadUpdates();
   } catch (e) {
     alert(e.message);
   }

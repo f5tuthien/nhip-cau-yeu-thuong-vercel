@@ -47,7 +47,7 @@ function showDashboard() {
 }
 
 async function loadCamps() {
-  const rows = await fetch('/api/camps').then((r) => r.json());
+  const rows = await fetch('/api/camps?t=' + Date.now()).then((r) => r.json());
   $('#camp-rows').innerHTML = rows.length
     ? rows.map((c) => `
       <tr>
