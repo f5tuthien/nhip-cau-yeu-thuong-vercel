@@ -1,4 +1,4 @@
-import { getSql, ensureTables, isAdmin, json, readBody, clip } from './_lib.js';
+import { getSql, ensureTables, isAdmin, json, readBody, clip, cleanImageUrl } from './_lib.js';
 
 const SEED = [
   ['Bánh quy yêu thương', 'Bánh quy bơ nướng thủ công, hộp 10 cái.', 35000, 'Đồ ăn'],
@@ -35,13 +35,13 @@ export default async function handler(req, res) {
       if (req.query.all === '1') {
         if (!isAdmin(req)) return json(res, 401, { error: 'Chưa đăng nhập' });
         const rows = await sql`
-          SELECT id, name, description, price, category, available
+          SELECT id, name, description, price, category, available, image_url
           FROM products ORDER BY category, id`;
         return json(res, 200, rows);
       }
 
       const rows = await sql`
-        SELECT id, name, description, price, category
+        SELECT id, name, description, price, category, image_url
         FROM products WHERE available = true ORDER BY category, id`;
       res.setHeader('Cache-Control', 's-maxage=10, stale-while-revalidate=60');
       return res.status(200).json(rows);
@@ -58,10 +58,12 @@ export default async function handler(req, res) {
       if (price === null) return json(res, 400, { error: 'Giá không hợp lệ (0 đến 10.000.000)' });
       const description = clip(b.description, 600);
       const category = clip(b.category, 60) || 'Khác';
+      const image = cleanImageUrl(b.image_url);
+      if (image === null) return json(res, 400, { error: 'Link ảnh phải bắt đầu bằng https:// và không chứa dấu cách' });
       const [row] = await sql`
-        INSERT INTO products (name, description, price, category)
-        VALUES (${name}, ${description}, ${price}, ${category})
-        RETURNING id, name, description, price, category, available`;
+        INSERT INTO products (name, description, price, category, image_url)
+        VALUES (${name}, ${description}, ${price}, ${category}, ${image})
+        RETURNING id, name, description, price, category, available, image_url`;
       return json(res, 201, row);
     }
 
@@ -76,6 +78,11 @@ export default async function handler(req, res) {
         const price = parsePrice(b.price);
         if (price === null) return json(res, 400, { error: 'Giá không hợp lệ' });
         await sql`UPDATE products SET price = ${price} WHERE id = ${id}`;
+      }
+      if (b.image_url !== undefined) {
+        const image = cleanImageUrl(b.image_url);
+        if (image === null) return json(res, 400, { error: 'Link ảnh phải bắt đầu bằng https:// và không chứa dấu cách' });
+        await sql`UPDATE products SET image_url = ${image} WHERE id = ${id}`;
       }
       return json(res, 200, { ok: true });
     }

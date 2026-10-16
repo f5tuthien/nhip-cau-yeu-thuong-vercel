@@ -61,16 +61,21 @@ async function loadProducts() {
     $('#prod-rows').innerHTML = rows.length
       ? rows.map((p) => `
         <tr>
-          <td><b>${esc(p.name)}</b><br><small>${esc(p.description)}</small></td>
+          <td><b>${esc(p.name)}</b><br><small>${esc(p.description)}</small>
+            ${p.image_url ? `<br><img src="${esc(p.image_url)}" alt="" referrerpolicy="no-referrer" style="width:56px;height:56px;object-fit:cover;border-radius:8px;margin-top:6px" />` : ''}</td>
           <td>${esc(p.category)}</td>
           <td>
             <input type="number" min="0" max="10000000" step="1000" value="${Number(p.price)}"
               data-price-id="${p.id}" style="width:120px" aria-label="Giá" />
           </td>
+          <td>
+            <input type="url" maxlength="500" value="${esc(p.image_url || '')}" data-img-id="${p.id}"
+              placeholder="https://..." style="width:200px" aria-label="Link ảnh" />
+          </td>
           <td><input type="checkbox" data-avail-id="${p.id}" ${p.available ? 'checked' : ''} aria-label="Đang bán" style="width:auto" /></td>
           <td><button class="btn danger" data-del-prod="${p.id}">Xóa</button></td>
         </tr>`).join('')
-      : '<tr><td colspan="5" class="empty">Chưa có món nào.</td></tr>';
+      : '<tr><td colspan="6" class="empty">Chưa có món nào.</td></tr>';
   } catch (e) { /* đã xử lý */ }
 }
 
@@ -86,6 +91,7 @@ $('#prod-form').addEventListener('submit', async (ev) => {
         price: $('#pr-price').value,
         category: $('#pr-cat').value,
         description: $('#pr-desc').value,
+        image_url: $('#pr-img').value,
       }),
     });
     ev.target.reset();
@@ -111,6 +117,12 @@ document.addEventListener('change', async (ev) => {
         method: 'PATCH',
         body: JSON.stringify({ id: Number(t.dataset.priceId), price: t.value }),
       });
+    } else if (t.dataset?.imgId) {
+      await api('/api/products', {
+        method: 'PATCH',
+        body: JSON.stringify({ id: Number(t.dataset.imgId), image_url: t.value }),
+      });
+      loadProducts();
     } else if (t.dataset?.statusId) {
       await api('/api/orders', {
         method: 'PATCH',

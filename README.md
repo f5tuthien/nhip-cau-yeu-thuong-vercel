@@ -16,6 +16,7 @@ package.json   Thư viện cần dùng (@neondatabase/serverless)
 - Khách chọn **Chuyển khoản** sẽ thấy thông tin tài khoản, nội dung chuyển khoản (chính là mã đơn, ví dụ `NC0007`) và mã QR.
 - Khách chọn **Thanh toán khi nhận hàng** thì không cần chuyển khoản.
 - Giá luôn được máy chủ tính lại từ thực đơn, khách không sửa giá được.
+- Mỗi món có thể có ảnh: dán link ảnh bắt đầu bằng `https://` khi thêm món, hoặc sửa ở cột **Link ảnh** trong bảng Thực đơn (xóa trống ô rồi bấm ra ngoài để gỡ ảnh). Cần link trực tiếp tới file ảnh (thường kết thúc bằng `.jpg`, `.png`, `.webp`), không dùng link trang xem ảnh.
 - Website **không tự biết** khi tiền đã vào tài khoản. Bạn đối chiếu sao kê ngân hàng với mã đơn rồi chuyển trạng thái đơn sang **Đã thanh toán** trong trang admin.
 
 Việc cần làm sau khi deploy, trong `/admin.html`:

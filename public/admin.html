@@ -123,6 +123,8 @@
           <input id="pr-cat" maxlength="60" placeholder="VD: Đồ uống" />
           <label for="pr-desc">Mô tả</label>
           <textarea id="pr-desc" maxlength="600"></textarea>
+          <label for="pr-img">Link ảnh (không bắt buộc, phải bắt đầu bằng https://)</label>
+          <input id="pr-img" type="url" maxlength="500" placeholder="https://..." />
           <div class="form-actions"><button class="btn" type="submit">Thêm món</button></div>
           <div class="msg" id="prod-msg" role="status"></div>
         </form>
@@ -132,7 +134,7 @@
         <h2 class="section-title">Thực đơn</h2>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Món</th><th>Nhóm</th><th>Giá</th><th>Đang bán</th><th></th></tr></thead>
+            <thead><tr><th>Món</th><th>Nhóm</th><th>Giá</th><th>Link ảnh</th><th>Đang bán</th><th></th></tr></thead>
             <tbody id="prod-rows"></tbody>
           </table>
         </div>

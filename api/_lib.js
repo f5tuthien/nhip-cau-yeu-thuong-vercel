@@ -46,6 +46,8 @@ export async function ensureTables() {
         available BOOLEAN NOT NULL DEFAULT true,
         created_at TIMESTAMPTZ NOT NULL DEFAULT now()
       )`;
+    // Bảng products đã có từ trước nên thêm cột ảnh nếu chưa có
+    await sql`ALTER TABLE products ADD COLUMN IF NOT EXISTS image_url TEXT`;
     await sql`
       CREATE TABLE IF NOT EXISTS orders (
         id SERIAL PRIMARY KEY,
@@ -134,6 +136,13 @@ export function readBody(req) {
 }
 
 export const clip = (v, n) => String(v ?? '').trim().slice(0, n);
+
+// Link ảnh: để trống thì trả về chuỗi rỗng, hợp lệ (https) thì trả về link, sai thì trả về null
+export function cleanImageUrl(v) {
+  const s = clip(v, 500);
+  if (!s) return '';
+  return /^https:\/\/[^\s"'<>]+$/i.test(s) ? s : null;
+}
 
 /* ---------- Thông tin thanh toán (admin nhập, khách xem khi đặt hàng) ---------- */
 

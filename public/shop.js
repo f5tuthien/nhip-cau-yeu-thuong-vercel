@@ -23,7 +23,10 @@
           <h3>${esc(cat)}</h3>
           ${list.map((p) => `
             <div class="menu-item">
-              <div>
+              ${p.image_url && /^https:\/\//i.test(p.image_url)
+                ? `<img class="menu-photo" src="${esc(p.image_url)}" alt="${esc(p.name)}" loading="lazy" referrerpolicy="no-referrer" />`
+                : ''}
+              <div class="menu-info">
                 <h4>${esc(p.name)}</h4>
                 ${p.description ? `<p>${esc(p.description)}</p>` : ''}
                 <span class="price">${money(p.price)}</span>
